@@ -3,7 +3,12 @@ import { render, fireEvent, waitFor } from "@testing-library/react-native"
 import { useNavigation } from "@react-navigation/native"
 import { showMessage } from "react-native-flash-message"
 
-import { MyHealthStackScreens } from "../navigation"
+import {
+  ModalStackScreens,
+  MyHealthStackScreens,
+  SelfScreenerStackScreens,
+  Stacks,
+} from "../navigation"
 
 import Today from "./Today"
 import { SymptomLogContext } from "./SymptomLogContext"
@@ -151,9 +156,9 @@ describe("Today", () => {
 
         fireEvent.press(getByLabelText("Not well"))
         await waitFor(() => {
-          expect(navigateSpy).toHaveBeenCalledWith(
-            MyHealthStackScreens.SelectSymptoms,
-          )
+          expect(navigateSpy).toHaveBeenCalledWith(Stacks.Modal, {
+            screen: ModalStackScreens.SelfScreener,
+          })
           expect(addTodaysCheckInSpy).toHaveBeenCalledWith(
             CheckInStatus.FeelingNotWell,
           )
